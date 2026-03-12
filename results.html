@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promptly — Your AI Readiness Score</title>
+  <meta name="description" content="Your personalised AI readiness score and diagnosis." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    /* ── Results page — scoped styles ─────────────────────── */
+
+    .results-page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    /* Section spacing */
+    .r-section { /* intentionally unstyled — spacing via results-page padding + dividers */ }
+
+    .results-divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 40px 0;
+    }
+
+    .r-section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #6b7280;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    /* ── Hero ── */
+    .results-stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: #f0eeff;
+      border: 1px solid #6F61EF;
+      color: #6F61EF;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .results-stage-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.1;
+      margin: 0 0 12px;
+    }
+
+    .results-stage-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: #6b7280;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Dimension cards ── */
+    .results-dim-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .results-dim-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .results-dim-card--full {
+      grid-column: 1 / -1;
+    }
+
+    .results-dim-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .results-dim-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .results-dim-score {
+      font-family: 'DM Mono', monospace;
+      font-size: 32px;
+      font-weight: 500;
+      color: #1a1a2e;
+      line-height: 1;
+    }
+
+    .results-dim-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6F61EF;
+    }
+
+    .results-dim-bar-track {
+      height: 3px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .results-dim-bar-fill {
+      height: 100%;
+      background: #6F61EF;
+      border-radius: 999px;
+      transition: width 1s ease 0.5s;
+    }
+
+    /* ── Insight cards ── */
+    .insight-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .insight-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .insight-card__icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: #f0eeff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .insight-card__body { flex: 1; }
+
+    .insight-card__label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .insight-card__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #1a1a2e;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .insight-card__text strong {
+      color: #6F61EF;
+      font-weight: 600;
+    }
+
+    .insight-card__sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.65;
+      margin: 8px 0 0;
+    }
+
+    /* ── CTA card ── */
+    .results-cta-card {
+      background: #fff;
+      border: 2px solid #6F61EF;
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .cta-tag {
+      display: inline-block;
+      background: #6F61EF;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    .cta-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+
+    .cta-teaser {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+
+    .cta-checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    .cta-check {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      background: #6F61EF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .btn-cta-full {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: #6F61EF;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(111,97,239,0.25);
+      text-align: center;
+    }
+
+    .btn-cta-full:hover {
+      background: #5a4fd4;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(111,97,239,0.35);
+    }
+
+    .btn-cta-full:active  { transform: translateY(0); }
+    .btn-cta-full:disabled {
+      background: #c4bef8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .cta-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+      margin: 10px 0 0;
+    }
+
+    /* ── Fade-up animation ── */
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .results-page { padding: 40px 20px 80px; }
+      .results-stage-name { font-size: 40px; }
+      .results-stage-desc { font-size: 15px; }
+      .results-dim-grid { grid-template-columns: 1fr; }
+      .results-dim-card--full { grid-column: 1; }
+      .insight-card { padding: 16px 18px; gap: 12px; }
+      .insight-card__icon { width: 32px; height: 32px; }
+      .results-cta-card { padding: 24px 20px; }
+      .cta-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__inner">
+        <a href="index.html" class="logo">Promptly</a>
+        <a href="assessment.html" style="font-size:0.85rem; color:var(--text-secondary);">Retake assessment</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="results-root">
+    <!-- Injected by app.js renderResults() -->
+    <div style="display:flex; align-items:center; justify-content:center; min-height:60vh;">
+      <div class="spinner"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Promptly. Built for businesses that want clarity, not hype.</p>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

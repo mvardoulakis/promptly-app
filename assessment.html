@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promptly — AI Readiness Assessment</title>
+  <meta name="description" content="Answer 14 questions to get your personalised AI readiness score." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <!-- Header with progress bar -->
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__inner">
+        <a href="index.html" class="logo">Promptly</a>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <p class="progress-label" id="progress-label">0% complete</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Assessment root — all question UI injected here by app.js -->
+  <main>
+    <div id="assessment-root">
+      <div class="question-wrap">
+        <div class="container--narrow" style="text-align:center;">
+          <p style="color:var(--text-secondary);">Loading assessment…</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

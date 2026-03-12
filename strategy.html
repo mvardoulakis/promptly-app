@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promptly — Your AI Strategy Report</title>
+  <meta name="description" content="Your personalised 90-day AI strategy report." />
+  <link rel="stylesheet" href="assets/style.css" />
+  <!-- html2pdf for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- marked for Markdown → HTML rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__inner">
+        <a href="index.html" class="logo">Promptly</a>
+        <a href="results.html" style="font-size:0.85rem; color:var(--text-secondary);">← Back to results</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="strategy-root">
+    <!-- Loading state shown immediately -->
+    <div id="loading-state" class="strategy-loading container--narrow">
+      <div class="spinner"></div>
+      <div>
+        <p style="font-family:var(--font-head); font-size:1.4rem; color:var(--text); margin-bottom:8px;">
+          Generating your personalised AI Strategy Report…
+        </p>
+        <p style="color:var(--text-secondary); font-size:0.9rem;">
+          This takes about 15–20 seconds. Please don't close this page.
+        </p>
+      </div>
+      <div id="loading-steps" style="text-align:left; max-width:320px;">
+        <p id="step-1" class="loading-step" style="font-size:0.85rem; color:var(--text-secondary); margin:6px 0; display:flex; gap:8px; align-items:center;">
+          <span class="step-dot"></span> Analysing your dimension scores
+        </p>
+        <p id="step-2" class="loading-step" style="font-size:0.85rem; color:var(--text-secondary); margin:6px 0; display:flex; gap:8px; align-items:center; opacity:0.4;">
+          <span class="step-dot"></span> Tailoring to your industry
+        </p>
+        <p id="step-3" class="loading-step" style="font-size:0.85rem; color:var(--text-secondary); margin:6px 0; display:flex; gap:8px; align-items:center; opacity:0.4;">
+          <span class="step-dot"></span> Building your 90-day plan
+        </p>
+        <p id="step-4" class="loading-step" style="font-size:0.85rem; color:var(--text-secondary); margin:6px 0; display:flex; gap:8px; align-items:center; opacity:0.4;">
+          <span class="step-dot"></span> Selecting relevant AI tools
+        </p>
+      </div>
+    </div>
+
+    <!-- Report injected here after load -->
+    <div id="report-state" class="hidden">
+      <div class="strategy-content container--narrow">
+
+        <!-- Report header -->
+        <div class="strategy-header">
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+            <a href="index.html" class="logo" style="font-size:1.3rem;">Promptly</a>
+            <span style="color:var(--border)">|</span>
+            <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-secondary);">AI Strategy Report</span>
+          </div>
+          <div id="report-meta" style="display:flex; gap:16px; flex-wrap:wrap;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Report body -->
+        <div id="report-body" class="report-body">
+          <!-- Rendered markdown injected here -->
+        </div>
+
+        <!-- QR / referral placeholder -->
+        <div style="margin-top:48px; padding:24px; border:1.5px dashed var(--border); border-radius:var(--radius); text-align:center;">
+          <div style="width:80px; height:80px; background:var(--border); border-radius:8px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--text-secondary); font-family:var(--font-mono);">QR</div>
+          <p style="font-size:0.8rem; color:var(--text-secondary); margin:0;">Share Promptly with a colleague — promptly.ai</p>
+        </div>
+
+        <!-- PDF export -->
+        <div style="text-align:center; margin-top:40px; margin-bottom:60px;">
+          <button class="btn btn--primary btn--large" onclick="exportPDF()">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 2v9M5 8l4 4 4-4M3 14h12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download as PDF
+          </button>
+          <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:10px; font-family:var(--font-mono);">
+            Saves to your downloads folder as a formatted PDF report
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-state" class="hidden strategy-loading container--narrow">
+      <div style="text-align:center; max-width:480px;">
+        <div style="font-size:3rem; margin-bottom:16px;">⚠️</div>
+        <h2 style="font-family:var(--font-head); margin-bottom:12px;">Something went wrong</h2>
+        <p id="error-message" style="color:var(--text-secondary); margin-bottom:28px;"></p>
+        <a href="results.html" class="btn btn--primary">← Back to your results</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Promptly. Built for businesses that want clarity, not hype.</p>
+  </footer>
+
+  <style>
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); display: inline-block; flex-shrink: 0;
+    }
+    .loading-step.active { opacity: 1 !important; }
+    .loading-step.done   { opacity: 0.6 !important; }
+    .loading-step.done .step-dot { background: var(--success); }
+  </style>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/pdf-export.js"></script>
+
+  <script>
+    (async function initStrategy() {
+      console.log('URL search:', window.location.search);
+      console.log('session_id:', new URLSearchParams(window.location.search).get('session_id'));
+      console.log('raw data param:', new URLSearchParams(window.location.search).get('data'));
+      console.log('sessionStorage:', sessionStorage.getItem('promptly_scoreData'));
+
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const rawData = params.get('data');
+      let scoreData = null;
+      if (rawData) {
+        try {
+          scoreData = JSON.parse(decodeURIComponent(rawData));
+        } catch(e) {
+          console.error('Failed to parse URL data:', e);
+        }
+      }
+      if (!scoreData) {
+        const stored = sessionStorage.getItem('promptly_scoreData');
+        if (stored) {
+          try {
+            scoreData = JSON.parse(stored);
+          } catch(e) {
+            console.error('Failed to parse sessionStorage data:', e);
+          }
+        }
+      }
+      if (!sessionId || !scoreData) {
+        showError();
+        return;
+      }
+
+      // Animate loading steps
+      animateLoadingSteps();
+
+      // Call generate-strategy serverless function
+      let report;
+      try {
+        const res = await fetch('/api/generate-strategy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, scoreData })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'API error');
+        }
+
+        const json = await res.json();
+        report = json.report;
+      } catch(err) {
+        console.error(err);
+        showError('We couldn\'t generate your report right now. Please try refreshing the page. If this keeps happening, contact support@promptly.ai');
+        return;
+      }
+
+      // Render report
+      renderReport(scoreData, report);
+    })();
+
+    function animateLoadingSteps() {
+      const steps = ['step-1', 'step-2', 'step-3', 'step-4'];
+      const delays = [0, 4000, 8000, 13000];
+      steps.forEach((id, i) => {
+        setTimeout(() => {
+          document.getElementById(id).classList.add('active');
+          if (i > 0) document.getElementById(steps[i-1]).classList.add('done');
+        }, delays[i]);
+      });
+    }
+
+    function renderReport(scoreData, markdownReport) {
+      // Hide loading, show report
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('report-state').classList.remove('hidden');
+
+      // Render meta badges
+      const meta = document.getElementById('report-meta');
+      meta.innerHTML = `
+        <span class="stage-badge"><span class="stage-badge__dot"></span>${scoreData.stage}</span>
+        <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-secondary); display:flex; align-items:center; gap:4px;">
+          Score: <strong style="color:var(--text);">${scoreData.totalScore}/100</strong>
+        </span>
+        <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-secondary); display:flex; align-items:center; gap:4px;">
+          ${scoreData.industry || 'General'}
+        </span>
+      `;
+
+      // Render markdown to HTML
+      const reportBody = document.getElementById('report-body');
+
+      if (typeof marked !== 'undefined') {
+        reportBody.innerHTML = marked.parse(markdownReport);
+      } else {
+        // Fallback: basic text rendering with <br> for newlines
+        reportBody.innerHTML = markdownReport
+          .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+          .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/^- (.+)$/gm, '<li>$1</li>')
+          .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+          .replace(/\n\n/g, '</p><p>')
+          .replace(/^(?!<[hul])/gm, '<p>')
+          .replace(/(?<![>])$/gm, '</p>');
+      }
+
+      // Wrap sections in cards for visual separation
+      reportBody.querySelectorAll('h2').forEach(h2 => {
+        const section = document.createElement('div');
+        section.className = 'report-section';
+        let el = h2;
+        const els = [h2];
+        while (el.nextElementSibling && el.nextElementSibling.tagName !== 'H2') {
+          el = el.nextElementSibling;
+          els.push(el);
+        }
+        h2.parentNode.insertBefore(section, h2);
+        els.forEach(e => section.appendChild(e));
+      });
+
+      // Store report for PDF
+      window._promptlyReport = markdownReport;
+      window._promptlyScoreData = scoreData;
+    }
+
+    function showError(msg) {
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('error-state').classList.remove('hidden');
+      document.getElementById('error-message').textContent = msg;
+    }
+  </script>
+
+</body>
+</html>

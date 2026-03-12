@@ -1,0 +1,17 @@
+{
+  "name": "promptly-functions",
+  "version": "1.0.0",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.9",
+    "stripe": "^14.25.0"
+  },
+  "description": "",
+  "main": "create-checkout.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
