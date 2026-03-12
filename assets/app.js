@@ -291,7 +291,7 @@ const INDUSTRY_INSIGHTS = {
   'Marketing & Advertising': "Marketing businesses are often further ahead on AI tools than they realise — the challenge is usually that usage is patchy, individual, and disconnected from how the business actually delivers work.",
   'Healthcare & Wellness':   "In healthcare and wellness, the highest-value AI applications are rarely clinical — they're operational and administrative, and they free up the people with the expertise to use it where it matters most.",
   'Real Estate':             "Real estate businesses generate enormous amounts of information across every deal, client, and property — most of it never gets captured in a way that makes the next transaction easier.",
-  'Retail & E-commerce':     "For retail businesses, AI readiness tends to come down to one thing more than anything else: whether the data from day-to-day operations is clean, consistent, and actually being used.",
+  'Retail & E-commerce':     "For retail businesses, GenAI clarity tends to come down to one thing more than anything else: whether the data from day-to-day operations is clean, consistent, and actually being used.",
   'Construction & Trades':   "Construction and trades businesses are often dismissed as low-tech — but the operational and information challenges they face are exactly the kind AI is increasingly good at solving.",
   'Education & Coaching':    "Education and coaching businesses have something most industries don't — a naturally repeatable delivery model — and that repeatability is what makes AI unusually effective here when the foundations are right.",
   'Other':                   "Every business has its own version of the same underlying challenge — too much knowledge locked in people's heads, too many processes that depend on the right person being available, and not enough structured information to make good decisions quickly."
@@ -301,7 +301,7 @@ const CHALLENGE_ACKNOWLEDGMENTS = {
   operations: "Operational consistency is one of those things that's easy to deprioritise when the business is busy — and most businesses only notice the gap when something goes wrong or a key person leaves.",
   information: "Scattered or hard-to-find information is the single most common reason AI implementations underdeliver — it's not a technology problem, it's a foundations problem, and it's entirely fixable.",
   people:      "Resistance or uncertainty around AI is almost never about capability — it's usually about trust, bandwidth, and not having seen it work for someone in a similar role yet.",
-  technology:  "Disconnected tools are more common than most businesses realise — and the good news is that AI readiness doesn't require a technology overhaul, it requires knowing which gaps actually matter.",
+  technology:  "Disconnected tools are more common than most businesses realise — and the good news is that GenAI clarity doesn't require a technology overhaul, it requires knowing which gaps actually matter.",
   strategy:    "Most businesses that struggle with AI strategy aren't lacking ambition — they're trying to answer the wrong question. The right question isn't 'how do we use AI' it's 'what specific problem would change everything if we solved it'."
 };
 
@@ -320,14 +320,14 @@ function getBenchmarkLine(stage, totalScore) {
   }
   if (stage === 'Acceleration') {
     if (totalScore >= 70) {
-      return "You're approaching the top of the Acceleration stage — research indicates businesses at this level are among the top 15% of SMBs for AI readiness globally.";
+      return "You're approaching the top of the Acceleration stage — research indicates businesses at this level are among the top 15% of SMBs for GenAI clarity globally.";
     }
     return "Industry research suggests fewer than 20% of small and mid-sized businesses reach this stage — your business has built something most haven't.";
   }
   if (stage === 'Mastery') {
-    return "Research from McKinsey and Deloitte consistently identifies fewer than 5% of businesses at this level of AI readiness — this is a genuinely rare result.";
+    return "Research from McKinsey and Deloitte consistently identifies fewer than 5% of businesses at this level of GenAI clarity — this is a genuinely rare result.";
   }
-  return "Across industries, research suggests the majority of businesses are still in the early stages of AI readiness — your score puts your business ahead of where most are today.";
+  return "Across industries, research suggests the majority of businesses are still in the early stages of GenAI clarity — your score puts your business ahead of where most are today.";
 }
 
 function assembleNarrative(scoreResult, industry) {
@@ -384,10 +384,10 @@ const STAGE_DESCRIPTIONS = {
 /* ── Phase B Teaser Copy ───────────────────────────────────── */
 
 const PHASE_B_TEASERS = {
-  Emerging:     "Your assessment has identified exactly where your foundations need work before AI can deliver for your business. The AI Strategy Report turns that diagnosis into a specific 90-day plan — the tools to start with, the internal changes that will make the biggest difference, and the order to tackle them in so you're not wasting time or money moving in the wrong direction.",
-  Momentum:     "You've made a real start — but your assessment shows there are specific areas creating drag that will limit how far your current efforts take you. The AI Strategy Report identifies exactly where that drag is coming from and gives you a focused 90-day plan to close the gap between where you are and where AI starts delivering consistent returns.",
-  Acceleration: "Your business has real AI readiness — the question now is where to focus so that advantage compounds rather than plateaus. The AI Strategy Report takes your specific profile and builds a 90-day plan around the highest-leverage opportunities for a business at your stage — the ones most likely to produce results you can actually point to.",
-  Mastery:      "A Mastery result means your business is genuinely positioned to use AI in ways most businesses can't yet. The AI Strategy Report is built around that — not foundational advice you don't need, but a specific 90-day plan for directing your advantage deliberately, so the gap between your business and the rest of your industry keeps widening."
+  Emerging:     "Your assessment has identified exactly where your foundations need work before AI can deliver for your business. The GenAI Strategy Report turns that diagnosis into a specific 90-day plan — the tools to start with, the internal changes that will make the biggest difference, and the order to tackle them in so you're not wasting time or money moving in the wrong direction.",
+  Momentum:     "You've made a real start — but your assessment shows there are specific areas creating drag that will limit how far your current efforts take you. The GenAI Strategy Report identifies exactly where that drag is coming from and gives you a focused 90-day plan to close the gap between where you are and where AI starts delivering consistent returns.",
+  Acceleration: "Your business has real GenAI clarity — the question now is where to focus so that advantage compounds rather than plateaus. The GenAI Strategy Report takes your specific profile and builds a 90-day plan around the highest-leverage opportunities for a business at your stage — the ones most likely to produce results you can actually point to.",
+  Mastery:      "A Mastery result means your business is genuinely positioned to use AI in ways most businesses can't yet. The GenAI Strategy Report is built around that — not foundational advice you don't need, but a specific 90-day plan for directing your advantage deliberately, so the gap between your business and the rest of your industry keeps widening."
 };
 
 /* ── Short Stage Diagnoses (results page insight cards) ────── */
@@ -706,7 +706,7 @@ function renderResults(data) {
 
       <!-- Section 3: Insight cards -->
       <section class="r-section fade-up" style="animation-delay:0.3s;">
-        <p class="r-section-label">WHAT THIS MEANS FOR YOU</p>
+        <p class="r-section-label">WHAT THIS MEANS FOR YOUR GENAI JOURNEY</p>
         <div class="insight-cards">
 
           <!-- Card 1: Diagnosis -->
@@ -776,7 +776,7 @@ function renderResults(data) {
             <li><span class="cta-check">${checkSVG}</span>Your single most important next step — within 7 days</li>
           </ul>
           <button class="btn-cta-full" id="btn-buy" onclick="handleBuyClick()">
-            Get My AI Strategy Report — $97
+            Get My GenAI Strategy Report — $97
           </button>
           <p class="cta-note">One-time purchase. Delivered as a PDF within minutes of payment.</p>
         </div>
@@ -932,7 +932,7 @@ async function handleBuyClick() {
     console.error(err);
     if (btn) {
       btn.disabled = false;
-      btn.textContent = 'Get My AI Strategy Report — $97';
+      btn.textContent = 'Get My GenAI Strategy Report — $97';
     }
     alert('Something went wrong. Please try again.');
   }
@@ -951,6 +951,6 @@ function shareToLinkedIn() {
   const data = loadScoreData();
   const score = data ? data.totalScore : '—';
   const stage = data ? data.stage : '';
-  const text = encodeURIComponent(`I scored ${score}/100 (${stage}) on the Promptly AI Readiness Assessment. Find out where your business stands: ${window.location.origin}/index.html`);
+  const text = encodeURIComponent(`I scored ${score}/100 (${stage}) on the Promptly GenAI Clarity Assessment. Find out where your business stands: ${window.location.origin}/index.html`);
   window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin)}&summary=${text}`, '_blank');
 }

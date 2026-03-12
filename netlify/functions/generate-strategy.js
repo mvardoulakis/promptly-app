@@ -41,7 +41,7 @@ function buildPrompt(data) {
 
 BUSINESS PROFILE:
 - Industry: ${data.industry}${data.industryOther ? ` (${data.industryOther})` : ''}
-- AI Readiness Stage: ${data.stage}
+- GenAI Clarity Stage: ${data.stage}
 - Overall Score: ${data.totalScore}/100
 - Operations score: ${Math.round(data.dimensionScores.operations)}/100
 - Information score: ${Math.round(data.dimensionScores.information)}/100
@@ -53,7 +53,7 @@ Write a personalised 90-day AI strategy report for this business. Be specific to
 
 Structure the report as follows:
 
-## Your AI Readiness Profile
+## Your GenAI Clarity Profile
 2–3 paragraphs summarising what their scores reveal. Be specific. Reference their actual dimension scores by name. Sound like a senior advisor who has reviewed their results carefully.
 
 ## Your 90-Day AI Strategy

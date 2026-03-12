@@ -102,7 +102,7 @@ function buildPrintDocument(scoreData) {
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div>
           <h1 style="color:#6F61EF; font-size:28px; margin-bottom:2px;">Promptly</h1>
-          <p style="color:#6b7280; font-size:12px; margin:0; font-family:monospace;">AI Strategy Report · Confidential</p>
+          <p style="color:#6b7280; font-size:12px; margin:0; font-family:monospace;">GenAI Strategy Report · Confidential</p>
         </div>
         <div style="text-align:right;">
           <div style="font-family:monospace; font-size:28px; font-weight:700; color:#1a1a2e; line-height:1;">${score}</div>
