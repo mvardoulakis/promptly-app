@@ -11,8 +11,8 @@ exports.handler = async (event) => {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 4000,
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2000,
       messages: [{ role: 'user', content: buildPrompt(scoreData) }]
     });
 
@@ -73,5 +73,5 @@ Structure the report as follows:
 One specific action to take in the next 7 days. Concrete and directly connected to their lowest-scoring dimension.
 
 Tone: Smart, direct advisor. Not a motivational coach. Not a sales pitch. Specific, honest, every sentence earns its place.
-Length: 1200–1500 words.`;
+Length: 800–1000 words. Be concise and specific — cut any padding.`;
 }
